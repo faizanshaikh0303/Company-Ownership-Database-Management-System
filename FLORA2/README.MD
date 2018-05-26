@@ -15,3 +15,8 @@ The command to run Flora-2 is ./runflora
 
 Step 2: Execute the file
 
+Now in flora type, 
+
+[path_to_file/filename].
+
+and press enter.
