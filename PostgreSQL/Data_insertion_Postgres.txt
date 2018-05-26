@@ -1,0 +1,84 @@
+/****************************************************************************
+CSE532 -- Project 2
+File name: Data_insertion_Postgres.txt
+Author(s): Siddharth Jain (111425239)
+           Shubham Kumar Jain (111482623)
+
+Brief description: SQL file containing the Postgresql commands for data insertion.
+
+We, pledge our honor that all parts of this project were done by us alone and without 
+collaboration with anybody else.
+****************************************************************************/
+
+//INSERTION INTO PERSON TABLE
+
+INSERT INTO person
+VALUES('p1','Bill Doe',
+ARRAY[('c5',30000),('c8',100000)]::ownstype[]);
+
+INSERT INTO person
+VALUES('p2','Bill Seth',
+ARRAY[('c7',40000),('c4',20000)]::ownstype[]);
+
+INSERT INTO person
+VALUES('p3','John Smyth',
+ARRAY[('c1',20000),('c2',20000),('c5',800000)]::ownstype[]);
+
+INSERT INTO person
+VALUES('p4','Anne Smyle',
+ARRAY[('c2',30000),('c5',40000),('c3',500000)]::ownstype[]);
+
+INSERT INTO person
+VALUES('p5','Steve Lamp',
+ARRAY[('c8',90000),('c1',50000),('c6',50000),('c2',70000)]::ownstype[]);
+
+INSERT INTO person
+VALUES('p6','May Serge',
+ARRAY[('c8',-10000),('c9',-40000),('c3',500000),('c2',40000)]::ownstype[]);
+
+INSERT INTO person
+VALUES('p7','Bill Public',
+ARRAY[('c7',80000),('c4',30000),('c1',30000),('c5',300000),('c2',-9000)]::ownstype[]);
+
+INSERT INTO person
+VALUES('p8','Muck Lain',
+ARRAY[('c2',60000),('c6',-40000),('c9',-80000),('c8',30000)]::ownstype[]);
+
+//INSERTION INTO COMPANY TABLE
+
+INSERT INTO company VALUES ('c1','QUE',30,ARRAY[('Software'),('Accounting')]::TEXT[],
+ARRAY(SELECT id FROM person WHERE id ='p3' or id = 'p1' or id = 'p4'),
+ARRAY[('c2',10000),('c4',20000),('c8',30000)]::ownstype[],150000);
+
+INSERT INTO company VALUES ('c2','RHC',20,ARRAY[('Accounting')]::TEXT[],
+ARRAY(SELECT id FROM person WHERE id ='p2' or id = 'p1' or id = 'p5'),
+ARRAY[]::ownstype[],250000);
+
+INSERT INTO company VALUES ('c3','Alf',700,ARRAY[('Software'),('Automotive')]::TEXT[],
+ARRAY(SELECT id FROM person WHERE id ='p6' or id = 'p1' or id = 'p7'),
+ARRAY[('c9',-100000),('c4',400000),('c8',100000)]::ownstype[],10000000);
+
+INSERT INTO company VALUES ('c4','Elgog',400,ARRAY[('Software'),('Search')]::TEXT[],
+ARRAY(SELECT id FROM person WHERE id ='p6' or id = 'p7' or id = 'p5'),
+ARRAY[('c6',5000)]::ownstype[],1000000);
+
+INSERT INTO company VALUES ('c5','Tfos',300,ARRAY[('Software'),('Hardware')]::TEXT[],
+ARRAY(SELECT id FROM person WHERE id ='p2' or id = 'p5' or id = 'p4'),
+ARRAY[('c1',200000),('c6',30000),('c7',50000)]::ownstype[],10000000);
+
+INSERT INTO company VALUES ('c6','Ohay',50,ARRAY[('Search')]::TEXT[],
+ARRAY(SELECT id FROM person WHERE id ='p2' or id = 'p8' or id = 'p4'),
+ARRAY[]::ownstype[],180000);
+
+INSERT INTO company VALUES ('c7','Gnow',300,ARRAY[('Search')]::TEXT[],
+ARRAY(SELECT id FROM person WHERE id ='p2' or id = 'p3' or id = 'p4'),
+ARRAY[]::ownstype[],150000);
+
+INSERT INTO company VALUES ('c8','Elpa',300,ARRAY[('Software'),('Hardware')]::TEXT[],
+ARRAY(SELECT id FROM person WHERE id ='p2' or id = 'p3' or id = 'p8'),
+ARRAY[('c5',20000),('c4',30000)]::ownstype[],9000000);
+
+INSERT INTO company VALUES ('c9','Ydex',100,ARRAY[('Software'),('Search')]::TEXT[],
+ARRAY(SELECT id FROM person WHERE id ='p6' or id = 'p3' or id = 'p8'),
+ARRAY[]::ownstype[],
+5000000);

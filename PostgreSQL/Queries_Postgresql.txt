@@ -1,0 +1,92 @@
+/****************************************************************************
+CSE532 -- Project 2
+File name: Queries_Postgresql.txt
+Author(s): Siddharth Jain (111425239)
+           Shubham Kumar Jain (111482623)
+
+Brief description: SQL file containing the Postgresql commands to implement the queries.
+
+We, pledge our honor that all parts of this project were done by us alone and without
+collaboration with anybody else.
+****************************************************************************/
+
+/*Q1 - Companies that are partially owned by one of their board members.*/
+
+SELECT C.name
+FROM company C, unnest(C.board) AS x, person P, unnest(P.owns) AS y
+WHERE x = P.id 
+    AND C.id=y.cid 
+    AND y.shares > 0
+        ORDER by C.name;
+
+/*Q2 - Net Worth*/
+
+SELECT Per.name, SUM(x.shares*C.shareprice)
+FROM person Per, company C, unnest(Per.owns) AS x
+WHERE x.cid = C.id
+	AND x.shares>0
+    	GROUP BY Per.name
+    	ORDER BY Per.name;
+
+
+/*Q3 - Board member that owns most shares.*/
+
+SELECT C.name, P.name
+FROM company C, Person P, unnest(C.board) AS x, unnest(P.owns) AS y
+WHERE x=P.id
+	AND y.cid=C.id
+	AND y.shares>0
+	AND y.shares=(
+   		SELECT max(z.shares)
+   		FROM person P, unnest(P.owns) AS z
+   		WHERE x=P.id
+       			AND z.cid=C.id
+       			AND z.shares>0 )
+ORDER BY C.name;
+
+/*Q4 - Company that dominates other company.*/
+
+SELECT c1.name,c2.name
+FROM company c1, company c2, unnest(c1.ind) AS i1, unnest(c2.ind) AS i2
+WHERE c1.id != c2.id
+  	AND i1=i2
+	AND NOT EXISTS(
+   		SELECT *
+   			FROM person P2, unnest(c2.board) AS x, unnest(P2.owns) AS y
+   			WHERE x = P2.id
+   				AND y.shares >0
+   				AND NOT EXISTS (
+       				SELECT *
+       				FROM person P1, unnest(c1.board) AS w, unnest(P1.owns) AS z
+       				WHERE w = P1.id
+           					AND z.cid=y.cid
+           					AND z.shares >= y.shares ) )
+GROUP BY c1.name,c2.name;
+
+
+/*Q5 - Person that controls a company and its percentage.*/
+
+CREATE RECURSIVE VIEW direct(oid,cid,Perc) AS
+(SELECT C2.id, C1.id, cast(cast(y.shares as Float)/cast(C1.cshares as Float) as numeric(10,8))
+FROM company C1, company C2, unnest(C2.owns) AS y
+WHERE y.cid = C1.id AND y.shares>0) UNION
+(SELECT P.id, C1.id,  
+cast(cast(x.shares as Float)/cast(C1.cshares as Float) as numeric(10,8))
+FROM company C1, person P, unnest(P.owns) AS x
+WHERE x.cid = C1.id 
+AND x.shares>0);
+
+CREATE RECURSIVE VIEW indirect(Entity,Cid,Per) AS
+(SELECT * FROM direct D)
+UNION
+SELECT D.oid, I.Cid, cast((D.Perc*I.Per) as numeric(10,8))
+FROM direct D, indirect I
+WHERE D.cid = I.Entity ;
+
+SELECT P.name, C.name,Cast(SUM(I.Per*100) as numeric(10,4)) AS Percentage
+FROM person P, company C, indirect I
+WHERE P.id = I.Entity AND C.id = I.Cid 
+AND I.Per*100>10
+GROUP BY P.name, C.name
+ORDER BY P.name;
+

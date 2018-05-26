@@ -1,0 +1,58 @@
+/****************************************************************************
+CSE532 -- Project 2
+File name: Schema_commands.txt
+Author(s): Siddharth Jain (111425239)
+           Shubham Kumar Jain (111482623)
+
+Brief description: SQL file containing the Postgresql commands to implement the 
+required schema of the project.
+
+We, pledge our honor that all parts of this project were done by us alone and without collaboration with anybody else.
+****************************************************************************/
+
+
+CREATE TYPE ownstype AS
+(
+           cid TEXT,
+	shares DOUBLE PRECISION
+);
+
+CREATE TYPE persontype AS
+(
+	pid TEXT,
+	pname TEXT,
+	owns ownstype[]
+);
+
+CREATE TYPE companytype AS
+(
+	cid TEXT,
+	cname TEXT,
+	shareprice Integer,
+	ind TEXT[],
+	board TEXT[],
+	owns ownstype[],
+	cshares DOUBLE PRECISION
+);
+
+CREATE TABLE person OF persontype
+(
+	pid PRIMARY KEY,
+	pname NOT NULL
+);
+
+CREATE TABLE company OF companytype
+(
+	cid PRIMARY KEY,
+	cname NOT NULL,
+	shareprice NOT NULL CHECK(shareprice>0),
+	cshares NOT NULL CHECK (cshares>0)
+);
+
+/* Creating index for both tables*/
+
+CREATE INDEX idx_person
+ON person(id,name,owns);
+
+CREATE INDEX idx_company
+ON company(id,name,shareprice,ind,board,owns,cshares);
