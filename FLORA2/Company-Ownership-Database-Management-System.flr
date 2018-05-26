@@ -1,0 +1,238 @@
+//Project By : Shubham Kumar Jain
+//SBU ID : 111482623
+
+/*
+   // describes a company
+   company(Id: symbol, Name: symbol, NumberofShares: integer)
+   Key: Id
+
+   // describes the share price
+   shareprice(Id: symbol, Price: integer)
+   Key: Id, Price
+
+   // describes the board members
+   board(Id: symbol, Member:symbol)
+   Key: Id, Member
+   
+   // describes the industry is involved in
+   industry(Id: symbol, Industry:symbol)
+   Key: Id, Industry
+   
+   // describes the companies and shares owned by this entity
+   owns(EntityId: symbol, Company:symbol, OwnShares:integer)
+   Key: EntityId, Company, OwnShares
+   
+   // describes a person
+   person(Id: symbol, Name:symbol)
+   Key: Id
+   
+*/
+
+company(c1, QUE, 150000).
+shareprice(c1, 30).
+board(c1,p3).
+board(c1,p1).
+board(c1,p4).
+industry(c1,{Software,Accounting}).
+owns(c1,c2,10000).
+owns(c1,c4,20000).
+owns(c1,c8,30000).
+
+company(c2, RHC, 250000).
+shareprice(c2, 20).
+board(c2,p1).
+board(c2,p2).
+board(c2,p5).
+industry(c2,Accounting).
+
+company(c3, Alf, 10000000).
+shareprice(c3, 700).
+board(c3,p6).
+board(c3,p7).
+board(c3,p1).
+industry(c3,{Software,Automotive}).
+owns(c3,c9,-100000).
+owns(c3,c4,400000).
+owns(c3,c8,100000).
+
+company(c4, Elgog, 1000000).
+shareprice(c4, 400).
+board(c4,p6).
+board(c4,p7).
+board(c4,p5).
+industry(c4,{Software,Search}).
+owns(c4,c6,5000).
+
+company(c5, Tfos, 10000000).
+shareprice(c5, 300).
+board(c5,p2).
+board(c5,p5).
+board(c5,p4).
+industry(c5,{Software,Hardware}).
+owns(c5,c6,30000).
+owns(c5,c7,50000).
+owns(c5,c1,200000).
+
+company(c6, Ohay, 180000).
+shareprice(c6, 50).
+board(c6,p2).
+board(c6,p4).
+board(c6,p8).
+industry(c6,Search).
+
+company(c7, Gnow, 150000).
+shareprice(c7, 300).
+board(c7,p2).
+board(c7,p3).
+board(c7,p4).
+industry(c7,Search).
+
+company(c8, Elpa, 9000000).
+shareprice(c8, 300).
+board(c8,p2).
+board(c8,p3).
+board(c8,p8).
+industry(c8,{Software,Hardware}).
+owns(c8,c5,20000).
+owns(c8,c4,30000).
+
+company(c9, Ydex, 5000000).
+shareprice(c9, 100).
+board(c9,p6).
+board(c9,p3).
+board(c9,p8).
+industry(c9,{Software,Search}).
+
+person(p1, 'Bill Doe').
+owns(p1,c5,30000).
+owns(p1,c8,100000).
+
+person(p2, 'Bill Seth').
+owns(p2,c7,40000).
+owns(p2,c4,20000).
+
+person(p3, 'John Smyth').
+owns(p3,c1,20000).
+owns(p3,c2,20000).
+owns(p3,c5,800000).
+
+person(p4, 'Anne Smyle').
+owns(p4,c2,30000).
+owns(p4,c5,40000).
+owns(p4,c3,500000).
+
+person(p5, 'Steve Lamp').
+owns(p5,c8,90000).
+owns(p5,c1,50000).
+owns(p5,c6,50000).
+owns(p5,c2,70000).
+
+person(p6, 'May Serge').
+owns(p6,c8,-10000).
+owns(p6,c9,-40000).
+owns(p6,c3,500000).
+owns(p6,c2,40000).
+
+person(p7, 'Bill Public').
+owns(p7,c7,80000).
+owns(p7,c4,30000).
+owns(p7,c1,30000).
+owns(p7,c5,300000).
+owns(p7,c2,-9000).
+
+person(p8, 'Muck Lain').
+owns(p8,c2,60000).
+owns(p8,c6,-40000).
+owns(p8,c9,-80000).
+owns(p8,c8,30000).
+
+
+// all companies that are partially owned by one of their board members
+
+Q1(?Company) :-
+        company(?CompanyId,?Company,?),
+        board(?CompanyId,?PersonId),
+        owns(?PersonId,?CompanyId,?Shares),
+        ?Shares > 0.
+
+// find a person's networth
+
+Q2(?Person,?NetWorth) :-
+        ?NetWorth = sum{?X[?Person]|person(?PersonId,?Person),
+        owns(?PersonId,?_CompanyId,?Shares),
+        shareprice(?_CompanyId,?Price),
+        ?Shares>0, ?X \is (?Shares * ?Price) }.
+
+
+// find the top board member of the company
+        
+Q3(?Company,?TopBoardMember) :-
+        company(?CompanyId,?Company,?),
+        board(?CompanyId,?PersonId),
+        owns(?PersonId,?CompanyId,?Shares),
+        ?Shares>0,
+        ?X=max{?Shares1[?CompanyId1]|owns(?PersonId,?CompanyId1,?Shares1),
+        board(?CompanyId1,?PersonId)},
+        person(?PersonId, ?TopBoardMember),
+        ?Shares = ?X.
+        
+
+// find the company1 and company2 pair where company1 dominates company2      
+
+Q4(?Company1,?Company2) :-
+        company(?Id1,?Company1,?),
+        company(?Id2,?Company2,?),
+        ?Company1 != ?Company2,
+        industry(?Id1,?Ind1),
+        industry(?Id2,?Ind2),
+        ?Ind1=?Ind2,
+        forall(?P2,?C,?Num2)^
+        (
+        board(?Id2,?P2),
+        owns(?P2,?C,?Num2)~~>exists(?P1,?Num1)^
+        (board(?Id1,?P1),
+        owns(?P1,?C,?Num1),
+        ?Num2=<?Num1)).
+        
+     
+// find the person's percentage share in the company
+ 
+Q5(?Person,?Company,?Percentage) :-
+        person(?PersonId,?Person),
+        company(?CompanyId,?Company,?),
+        ?Percentage = sum{?Percentage|
+        controls_indirectly(?PersonId,?CompanyId,?Percentage1),
+        ?Percentage \is ?Percentage1*100 },
+        ?Percentage > 10.
+        
+controls_directly(?EntityId,?CompanyId,?Percentage) :-
+        owns(?EntityId,?CompanyId,?Shares),
+        company(?CompanyId, ?, ?TotShares),
+        ?Shares>0,
+        ?Percentage \is ?Shares/?TotShares.
+        
+controls_indirectly(?EntityId,?CompanyId,?Percentage) :- 
+        controls_directly(?EntityId,?CompanyId,?Percentage).
+
+controls_indirectly(?EntityId,?CompanyId,?Percentage) :-
+        controls_directly(?EntityId,?Company2Id,?Percentage1),
+        controls_indirectly(?Company2Id,?CompanyId,?Percentage2),
+        ?Percentage \is (?Percentage1*?Percentage2).
+ 
+
+?- writeln('\n\nExpected results \n================')@\plg.
+
+?- writeln('=== Query 1: all companies that are partially owned by one of their board members  ===')@\io,
+        Q1(?Company).
+
+?- writeln('=== Query 2: find a person networth ===')@\io,
+        Q2(?Person,?NetWorth).
+
+?- writeln('=== Query 3: find the top board member of the company ===')@\io,
+        Q3(?Company,?TopBoardMember).
+
+?- writeln('=== Query 4: find the company1 and company2 pair where company1 dominates company2 ===')@\io,
+        Q4(?Company1,?Company2).
+
+?- writeln('=== Query 5: find the person percentage share in the company ===')@\io,
+        Q5(?Person,?Company,?Percentage).
