@@ -1,0 +1,415 @@
+<!--I pledge my honor that all parts of this project were done by me alone and without collaboration with anybody else.
+
+CSE Project 3
+Name: Shubham Kumar Jain
+SBU ID: 111482623
+Brief Description: The database.xml file describes the data of the woco database-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema.xsd">
+
+<company>
+    <entity>
+        <id>c1</id>
+        <name>QUE</name>
+        <owns>
+            <own>
+                <cid>c2</cid>
+                <shares>10000</shares>
+            </own>
+            <own>
+                <cid>c4</cid>
+                <shares>20000</shares>
+            </own>
+            <own>
+                <cid>c8</cid>
+                <shares>30000</shares>
+            </own>
+        </owns>
+    </entity>
+    <shares>150000</shares>
+    <shareprice>30</shareprice>
+    <board>
+        <member><pid>p3</pid></member>
+        <member><pid>p1</pid></member>
+        <member><pid>p4</pid></member>
+    </board>
+    <industries>
+        <industry>Software</industry>
+        <industry>Accounting</industry>
+    </industries>
+</company>
+
+<company>
+    <entity>
+        <id>c2</id>
+        <name>RHC</name>
+        <owns>
+        </owns>
+    </entity>
+    <shares>250000</shares>
+    <shareprice>20</shareprice>
+    <board>
+        <member><pid>p1</pid></member>
+        <member><pid>p2</pid></member>
+        <member><pid>p5</pid></member>
+    </board>
+    <industries>
+        <industry>Accounting</industry>
+    </industries>
+</company>
+
+<company>
+    <entity>
+        <id>c3</id>
+        <name>Alf</name>
+        <owns>
+            <own>
+                <cid>c9</cid>
+                <shares>-100000</shares>
+            </own>
+            <own>
+                <cid>c4</cid>
+                <shares>400000</shares>
+            </own>
+            <own>
+                <cid>c8</cid>
+                <shares>100000</shares>
+            </own>
+        </owns>
+    </entity>
+    <shares>10000000</shares>
+    <shareprice>700</shareprice>
+    <board>
+        <member><pid>p6</pid></member>
+        <member><pid>p7</pid></member>
+        <member><pid>p1</pid></member>
+    </board>
+    <industries>
+        <industry>Software</industry>
+        <industry>Automotive</industry>
+    </industries>
+</company>
+
+<company>
+    <entity>
+        <id>c4</id>
+        <name>Elgog</name>
+        <owns>
+            <own>
+                <cid>c6</cid>
+                <shares>5000</shares>
+            </own>
+        </owns>
+    </entity>
+    <shares>1000000</shares>
+    <shareprice>400</shareprice>
+    <board>
+        <member><pid>p6</pid></member>
+        <member><pid>p7</pid></member>
+        <member><pid>p5</pid></member>
+    </board>
+    <industries>
+        <industry>Software</industry>
+        <industry>Search</industry>
+    </industries>
+</company>
+
+<company>
+    <entity>
+        <id>c5</id>
+        <name>Tfos</name>
+        <owns>
+            <own>
+                <cid>c6</cid>
+                <shares>30000</shares>
+            </own>
+            <own>
+                <cid>c7</cid>
+                <shares>50000</shares>
+            </own>
+            <own>
+                <cid>c1</cid>
+                <shares>200000</shares>
+            </own>
+        </owns>
+    </entity>
+    <shares>10000000</shares>
+    <shareprice>300</shareprice>
+    <board>
+        <member><pid>p2</pid></member>
+        <member><pid>p5</pid></member>
+        <member><pid>p4</pid></member>
+    </board>
+    <industries>
+        <industry>Software</industry>
+        <industry>Hardware</industry>
+    </industries>
+</company>
+
+<company>
+    <entity>
+        <id>c6</id>
+        <name>Ohay</name>
+        <owns>
+        </owns>
+    </entity>
+    <shares>180000</shares>
+    <shareprice>50</shareprice>
+    <board>
+        <member><pid>p2</pid></member>
+        <member><pid>p4</pid></member>
+        <member><pid>p8</pid></member>
+    </board>
+    <industries>
+        <industry>Search</industry>
+    </industries>
+</company>
+
+<company>
+    <entity>
+        <id>c7</id>
+        <name>Gnow</name>
+        <owns>
+        </owns>
+    </entity>
+    <shares>150000</shares>
+    <shareprice>300</shareprice>
+    <board>
+        <member><pid>p2</pid></member>
+        <member><pid>p3</pid></member>
+        <member><pid>p4</pid></member>
+    </board>
+    <industries>
+        <industry>Search</industry>
+    </industries>
+</company>
+
+<company>
+    <entity>
+        <id>c8</id>
+        <name>Elpa</name>
+        <owns>
+            <own>
+                <cid>c5</cid>
+                <shares>20000</shares>
+            </own>
+            <own>
+                <cid>c4</cid>
+                <shares>30000</shares>
+            </own>
+        </owns>
+    </entity>
+    <shares>9000000</shares>
+    <shareprice>300</shareprice>
+    <board>
+        <member><pid>p2</pid></member>
+        <member><pid>p3</pid></member>
+        <member><pid>p8</pid></member>
+    </board>
+    <industries>
+        <industry>Software</industry>
+        <industry>Hardware</industry>
+    </industries>
+</company>
+
+<company>
+    <entity>
+        <id>c9</id>
+        <name>Ydex</name>
+        <owns>
+        </owns>
+    </entity>
+    <shares>5000000</shares>
+    <shareprice>100</shareprice>
+    <board>
+        <member><pid>p6</pid></member>
+        <member><pid>p3</pid></member>
+        <member><pid>p8</pid></member>
+    </board>
+    <industries>
+        <industry>Software</industry>
+        <industry>Search</industry>
+    </industries>
+</company>
+
+<person>
+    <entity>
+        <id>p1</id>
+        <name>Bill Doe</name>
+        <owns>
+            <own>
+                <cid>c5</cid>
+                <shares>30000</shares>
+            </own>
+            <own>
+                <cid>c8</cid>
+                <shares>100000</shares>
+            </own>
+        </owns>
+    </entity>
+</person>
+
+<person>
+    <entity>
+        <id>p2</id>
+        <name>Bill Seth</name>
+        <owns>
+            <own>
+                <cid>c7</cid>
+                <shares>40000</shares>
+            </own>
+            <own>
+                <cid>c4</cid>
+                <shares>20000</shares>
+            </own>
+        </owns>
+    </entity>
+</person>
+
+<person>
+    <entity>
+        <id>p3</id>
+        <name>John Smyth</name>
+        <owns>
+            <own>
+                <cid>c1</cid>
+                <shares>20000</shares>
+            </own>
+            <own>
+                <cid>c2</cid>
+                <shares>20000</shares>
+            </own>
+            <own>
+                <cid>c5</cid>
+                <shares>800000</shares>
+            </own>
+        </owns>
+    </entity>
+</person>
+
+<person>
+    <entity>
+        <id>p4</id>
+        <name>Anne Smyle</name>
+        <owns>
+            <own>
+                <cid>c2</cid>
+                <shares>30000</shares>
+            </own>
+            <own>
+                <cid>c5</cid>
+                <shares>40000</shares>
+            </own>
+            <own>
+                <cid>c3</cid>
+                <shares>500000</shares>
+            </own>
+        </owns>
+    </entity>
+</person>
+
+<person>
+    <entity>
+        <id>p5</id>
+        <name>Steve Lamp</name>
+        <owns>
+            <own>
+                <cid>c8</cid>
+                <shares>90000</shares>
+            </own>
+            <own>
+                <cid>c1</cid>
+                <shares>50000</shares>
+            </own>
+            <own>
+                <cid>c6</cid>
+                <shares>50000</shares>
+            </own>
+            <own>
+                <cid>c2</cid>
+                <shares>70000</shares>
+            </own>
+        </owns>
+    </entity>
+</person>
+
+<person>
+    <entity>
+        <id>p6</id>
+        <name>May Serge</name>
+        <owns>
+            <own>
+                <cid>c8</cid>
+                <shares>-10000</shares>
+            </own>
+            <own>
+                <cid>c9</cid>
+                <shares>-40000</shares>
+            </own>
+            <own>
+                <cid>c3</cid>
+                <shares>500000</shares>
+            </own>
+            <own>
+                <cid>c2</cid>
+                <shares>40000</shares>
+            </own>
+        </owns>
+    </entity>
+</person>
+
+<person>
+    <entity>
+        <id>p7</id>
+        <name>Bill Public</name>
+        <owns>
+            <own>
+                <cid>c7</cid>
+                <shares>80000</shares>
+            </own>
+            <own>
+                <cid>c4</cid>
+                <shares>30000</shares>
+            </own>
+            <own>
+                <cid>c1</cid>
+                <shares>30000</shares>
+            </own>
+            <own>
+                <cid>c5</cid>
+                <shares>300000</shares>
+            </own>
+            <own>
+                <cid>c2</cid>
+                <shares>-9000</shares>
+            </own>
+        </owns>
+    </entity>
+</person>
+
+<person>
+    <entity>
+        <id>p8</id>
+        <name>Muck Lain</name>
+        <owns>
+            <own>
+                <cid>c2</cid>
+                <shares>60000</shares>
+            </own>
+            <own>
+                <cid>c6</cid>
+                <shares>-40000</shares>
+            </own>
+            <own>
+                <cid>c9</cid>
+                <shares>-80000</shares>
+            </own>
+            <own>
+                <cid>c8</cid>
+                <shares>30000</shares>
+            </own>
+        </owns>
+    </entity>
+</person>
+
+</entities>
