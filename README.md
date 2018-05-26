@@ -1,6 +1,6 @@
 # Company-Ownership-Database-Management-System
 
-CSE 532: Project
+CSE 532: Project - 
 Web of Company Ownership using Flora-2, Object-Oriented Extensions of SQL (PostgreSQL), XQuery language.
 
 The WOCO database contains information about companies, owners (based on the number of shares
